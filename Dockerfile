@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.20.0
 MAINTAINER expert@slckarea.net
 
 RUN apk add -U \
