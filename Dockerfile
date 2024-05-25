@@ -1,5 +1,5 @@
 FROM alpine:3.20.0
-MAINTAINER expert@slckarea.net
+LABEL org.opencontainers.image.authors="expert@slackarea.net"
 
 RUN apk add -U \
     openssh-server \
@@ -8,8 +8,10 @@ RUN apk add -U \
 ADD sshd_config /etc/ssh/
 # WARNING: The ssh server key is fixed at build time, rebuild to change the key
 RUN /usr/bin/ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N ''
-ADD create-users-and-run.sh /usr/local/bin/
+#ADD create-users-and-run.sh /usr/local/bin/
 
 EXPOSE 22
-ENTRYPOINT ["create-users-and-run.sh"]
+#ENTRYPOINT ["/usr/sbin/sshd", "-D", "-e"]
+#ENTRYPOINT ["create-users-and-run.sh"]
+CMD ["/usr/sbin/sshd", "-D", "-e"]
 #STOPSIGNAL INT
